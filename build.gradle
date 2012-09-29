@@ -1,10 +1,8 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
-apply plugin: 'signing'
 
 group = 'com.btmatthews.gradle.plugins'
 version = '1.0.0-SNAPSHOT'
-ext.packaging = 'jar'
 
 repositories {
     mavenCentral()
@@ -14,75 +12,14 @@ dependencies {
     compile gradleApi()
     compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.47'
     compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.47'
-    groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.8.6'
-}
-
-task groovydocJar(type: Jar, dependsOn: groovydoc) {
-    classifier = 'javadoc'
-    from 'build/docs/groovydoc'
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
-artifacts {
-    archives jar
-    archives groovydocJar
-    archives sourcesJar
-}
-
-if(gradle.startParameter.taskNames.contains("uploadArchies")) {
-    signing {
-        sign configuration.archives
-    }
-} else {
-    task signArchives {
-    }
+    testCompile group: 'junit', name: 'junit', version: '4.10'
+    groovy localGroovy()
 }
 
 uploadArchives {
     repositories {
-        if (version.contains("SNAPSHOT")) {
-            mavenLocal()
-        }
-        else {
-            mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-  
-                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
-                    authentication(userName: sonatypeUsername, password: sonatypePassword)
-                }
-
-                pom.project {
-                    name 'crx-gradle-plugin'
-                    packaging 'jar'
-                    description 'Packages and signs Google Chrome Extensions into a .crx package'
-                    url 'http://crx-gradle-plugin.btmatthews.com'
-
-                    scm {
-                        url 'https://github.com/bmatthews68/crx-maven-plugin'
-                        connection 'scm:git:git@github.com:bmatthews68/crx-maven-plugin.git'
-                        developerConnection 'scm:git:git@github.com:bmatthews68/crx-maven-plugin.git'
-                    }
-
-                    licenses {
-                        license {
-                            name 'The Apache Software License, Version 2.0'
-                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                            distribution 'repo'
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id 'bmatthews68'
-                            name 'Brian Matthews'
-                        }
-                    }
-                }
-            }
+        mavenDeployer {
+            repository(url: uri('../repo'))
         }
     }
 }
