@@ -5,11 +5,7 @@ import org.gradle.api.Plugin
 import com.btmatthews.gradle.plugins.crx.tasks.CRXTask
 
 /**
- * Created with IntelliJ IDEA.
- * User: Brian
- * Date: 28/09/12
- * Time: 20:49
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  */
 class CRXPlugin implements Plugin<Project> {
     void apply(Project project) {

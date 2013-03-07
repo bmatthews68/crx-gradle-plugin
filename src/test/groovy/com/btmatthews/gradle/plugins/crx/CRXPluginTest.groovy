@@ -8,15 +8,11 @@ import com.btmatthews.gradle.plugins.crx.tasks.CRXTask
 import static org.junit.Assert.assertTrue
 
 /**
- * Created with IntelliJ IDEA.
- * User: Brian
- * Date: 29/09/12
- * Time: 00:55
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  */
 class CRXPluginTest {
     @Test
-    public void greeterPluginAddsGreetingTaskToProject() {
+    public void crxPluginAddsCRXTaskToProject() {
         Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'crx'
 

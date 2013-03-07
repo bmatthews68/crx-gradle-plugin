@@ -1,12 +1,12 @@
 package com.btmatthews.gradle.plugins.crx
 
 /**
- *
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  */
 class CRXPluginExtension {
-    String pemFile
-    String pemPassword;
-    String crxSourceDirectory;
-    String packagingIncludes;
-    String packagingExcludes;
+    def String pemFile
+    def String pemPassword;
+    def String crxSourceDirectory = "src/main/chrome";
+    def String packagingIncludes;
+    def String packagingExcludes;
 }
